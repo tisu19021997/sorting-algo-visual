@@ -1,6 +1,5 @@
 let currentArray = Array.from({length: 300}, () => Math.floor(Math.random() * 40));
 
-
 const swap = (array, first, second) => {
   let temp = array[first];
   array[first] = array[second];
@@ -11,9 +10,6 @@ const swap = (array, first, second) => {
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
-  background(0);
-  textSize(32);
-  text('Bubble Sort');
 }
 
 
@@ -24,7 +20,9 @@ const colWidth = 5;
 const startY = 0;
 
 function draw() {
-  clear();
+  background(0);
+  translate(width - 100, height / 2);
+  rotate(PI);
 
   for (let i = 0; i < currentArray.length - k; i++) {
     if (currentArray[i] < currentArray[i + 1]) {
@@ -40,10 +38,5 @@ function draw() {
   }
 
   k++;
-
   startX = 0;
-
-  if (k >= currentArray.length) {
-    k = 0;
-  }
 }
