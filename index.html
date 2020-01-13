@@ -14,6 +14,28 @@
   <!-- <script src="src/sort/selection.js"></script> -->
   <script src="src/ui/index.js"></script>
   <!-- <script src="bubble.js"></script> -->
+  <script>
+    const insertionSort = function insertionSort(array) {
+
+      for (let i = 1; i < array.length; i++) {
+        let value = array[i];
+        let hole = i;
+
+        while (hole > 0 && array[hole - 1] > value) {
+          console.log(hole, value);
+          // keep going backward until the right position is found
+          array[hole] = array[hole - 1];
+          hole -= 1;
+        }
+
+        array[hole] = value;
+      }
+
+      return array;
+    }
+
+    console.log(insertionSort([123, 9999, 31, 12]));
+  </script>
 </body>
 
 </html>

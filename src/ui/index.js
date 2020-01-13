@@ -1,6 +1,6 @@
 let currentAlgo = '';
 let started = false;
-let arrayToSort;
+let arrayToSort = [];
 
 // each column element with
 const colWidth = 5;
@@ -16,6 +16,11 @@ let flag;
 let i = 0;
 let minimum;
 
+// insertion sort variables
+let iInsert;
+let holeIndex;
+let value;
+
 // sort algorithm list
 let algos = [{
     label: 'Bubble Sort',
@@ -24,6 +29,10 @@ let algos = [{
   {
     label: 'Selection Sort',
     value: 'selection',
+  },
+  {
+    label: 'Insertion Sort',
+    value: 'insertion',
   },
 ];
 
@@ -37,6 +46,12 @@ function refresh(sort) {
     case 'selection':
       i = 0;
       minimum = undefined;
+      break;
+
+    case 'insertion':
+      iInsert = 1;
+      value = arrayToSort[iInsert];
+      holeIndex = iInsert;
       break;
   }
 }
@@ -74,8 +89,8 @@ function setup() {
 
     btn.mouseClicked(function () {
       const algoData = btn.value();
-      refresh(algoData);
       arrayToSort = initRandomArray();
+      refresh(algoData);
       currentAlgo = algoData;
     })
   }
@@ -139,9 +154,35 @@ function draw() {
         swap(arrayToSort, i, minimum);
       }
 
-     visualize(arrayToSort, startX, startY, 2);
+      visualize(arrayToSort, startX, startY, 2);
 
       i++;
+      startX = 0;
+    }
+
+    // insertion sort
+    if (currentAlgo === 'insertion') {
+      value = arrayToSort[iInsert];
+      holeIndex = iInsert;
+
+      while (holeIndex > 0 && arrayToSort[holeIndex - 1] > value) {
+        // keep going backward while the left element is still
+        // smaller than the current element
+        arrayToSort[holeIndex] = arrayToSort[holeIndex - 1];
+        holeIndex -= 1;
+      }
+
+      // put the comparing value to the right position
+      arrayToSort[holeIndex] = value;
+
+      visualize(arrayToSort, startX, startY, 2);
+
+      if (iInsert < arrayToSort.length - 1) {
+        iInsert++;
+      } else {
+        return false;
+      }
+
       startX = 0;
     }
   }
